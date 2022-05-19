@@ -32,12 +32,15 @@ namespace Slipstream
             Instance.Config.WalkPercentIncreaseValue = 1 + Instance.Config.WalkPercentIncrease / 100f;
             Instance.Config.RunPercentIncreaseValue = 1 + Instance.Config.RunPercentIncrease / 100f;
             Exiled.Events.Handlers.Player.Spawned += OnPlayerSpawned;
+            Exiled.Events.Handlers.Player.Died += OnPlayerDied;
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
             Instance = null;
+            Exiled.Events.Handlers.Player.Spawned -= OnPlayerSpawned;
+            Exiled.Events.Handlers.Player.Died -= OnPlayerDied;
             ChangeWalkingSpeedPatch.WalkSpeeds.Clear();
             ChangeRunningSpeedPatch.RunSpeeds.Clear();
             base.OnDisabled();
